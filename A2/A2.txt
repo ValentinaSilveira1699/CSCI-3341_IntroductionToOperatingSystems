@@ -1,0 +1,96 @@
+CSCI 3341 Assignment 2 (Pointer and some C Practices)
+
+deadline --- 11:30PM Feb 1, Thursday, 2024.
+
+1.	(20 points) What is the output of the following C program? If you believe there is a compile error or runtime error, you should point out all the errors. You should be able to tell the answer without compiling or running it.
+#include <stdio.h>
+int main()
+{
+	int x=6;
+	int *q=&x;
+	x+=1; (*q)+=2; 
+	int y=x*((*q)-1);
+	printf("y is %d\n",y);
+	return 0;
+}
+
+Answer:
+Output: y is 72
+
+2. (20 points) What is the output of the following C program? If you believe there is a compile error or runtime error, you should point out all the errors. You should be able to tell the answer without compiling or running it.
+#include <stdio.h>
+int main()
+{
+	int x=6;
+	int *q=&x, &qq=*x;
+	(*q)-=2; (*qq)+=3;
+	int y=(*qq)*((*q)-2);
+	printf("y is %d\n",y);
+	return 0;
+}
+
+Answer:
+There are errors in the provided C program:
+- In the line int *q=&x, &qq=*x; the second part &qq=*x; is attempting to assign the value of *x to &qq, which is incorrect. 
+It should be: int *q=&x, *qq=&x;
+
+- In the line (*q)-=2; (*qq)+=3; is  trying to dereference qq and increment its value. However, qq is a pointer.
+The correct way should be: (*q)-=2; (*qq)+=3;
+ 
+3. (20 points) What is the output of the following C program? If you believe there is a compile error or runtime error, you should point out all the errors. You should be able to tell the answer without compiling or running it.
+#include <stdio.h>
+int main()
+{
+	int x=23,y=8;
+	int q=x/y,r=x%y,r2=(x>y);
+	double v=(double)x/y;
+	printf("q=%d,r=%d,r2=%d,v=%f\n",q,r,r2,v);
+	return 0;
+}
+
+Answer:
+Output: q=2,r=7,r2=1,v=2.875000
+
+4. (20 points) What is the output of the following C program? Point out all the errors if you believe there are any compile errors or potential runtime errors. You should be able to tell the answer without compiling or running it.
+#include <stdio.h>
+void myfun(char a[], int size) {
+char t, *p, *q;
+p=a; q=a+size-1;
+     while(p<q) {
+     t=*p; *p=*q; *q=t;
+     p++; q--;
+   	}//while
+}//myfun
+int main(int argc, char *argv[]) {
+   char a[10];
+	int i;
+for(i=0;i<10;i++) a[i]='e'+i; 
+myfun(a,10);
+	for(i=0;i<10;i++) printf("%c",a[i]); printf("\n");
+	return 0;
+}//main
+
+Answer:
+Output: nmlkjihgfe
+
+5. (20 points) What is the output of the following C program? Point out all the errors if you believe there are any compile errors or potential runtime errors. You should be able to tell the answer without compiling or running it.
+#include <stdio.h>
+void swap(char *p, char *q) {
+char *t;
+     t=p; p=q; q=t;
+}//swap
+int main(int argc, char *argv[]) {
+   char a[10];
+	int i;
+for(i=0;i<10;i++) a[i]='e'+i; 
+	for(i=0;i<5;i++) swap(&a[i],&a[9-i]); 
+printf("%c%c\n",a[0],a[9]);
+	return 0;
+}//main
+
+Answer:
+Output: en
+
+
+checklist of the files to be submitted:
+one text solution file A2.txt for problems 1~5 (to Dropbox A2)
